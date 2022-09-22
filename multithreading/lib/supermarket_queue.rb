@@ -20,12 +20,6 @@ def queue_time(customers, n)
     # Passage of time
     time += 1
   end
-  puts "The queue took #{time} minutes"
+  # puts "The queue took #{time} minutes"
   return time
 end
-
-# def handle_customers(customer, index)
-
-# end
-
-queue_time([2,2,3,3,4,4], 2)
