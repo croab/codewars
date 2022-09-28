@@ -23,18 +23,18 @@ describe "#sum_pairs" do
     expect(pair_of_values).to be_nil
   end
 
-  it "should return [1, 4] when the sum is 5 and the array is [1, 2, 3, 4, 1, 0]" do
+  it "should return [1, 1] when the sum is 2 and the array is [1, 2, 3, 4, 1, 0]" do
     array = [1, 2, 3, 4, 1, 0]
-    sum = 5
+    sum = 2
     pair_of_values = sum_pairs(array, sum)
-    expect(pair_of_values).to eq [1, 4]
+    expect(pair_of_values).to eq [1, 1]
   end
 
-  it "should return [5, 3]] when the sum is 8 and the array is [10, 5, 2, 3, 7, 5]" do
+  it "should return [3, 7]] when the sum is 10 and the array is [10, 5, 2, 3, 7, 5]" do
     array = [10, 5, 2, 3, 7, 5]
-    sum = 8
+    sum = 10
     pair_of_values = sum_pairs(array, sum)
-    expect(pair_of_values).to eq [5, 3]
+    expect(pair_of_values).to eq [3, 7]
   end
 
   it "should return [-2, 3] when the sum is 1 and the array is [4, -2, 3, 3, 4]" do
@@ -44,17 +44,24 @@ describe "#sum_pairs" do
     expect(pair_of_values).to eq [-2, 3]
   end
 
-  it "should return [2] when the sum is 2 and the array is [0, 2, 0]" do
-    array = l7= [0, 2, 0]
+  it "should return [0, 2] when the sum is 2 and the array is [0, 2, 0]" do
+    array = [0, 2, 0]
     sum = 2
     pair_of_values = sum_pairs(array, sum)
-    expect(pair_of_values).to eq [2]
+    expect(pair_of_values).to eq [0, 2]
   end
 
   it "should return [13, -3] when the sum is 10 and the array is [5, 9, 13, -3]" do
-    array = l7= [0, 2, 0]
+    array = [5, 9, 13, -3]
     sum = 10
     pair_of_values = sum_pairs(array, sum)
     expect(pair_of_values).to eq [13, -3]
+  end
+
+  it "should not return [2] when the sum is 4 and the array is [2, 3, -1, 5, 7]" do
+    array = [2, 3, -1, 5, 7]
+    sum = 4
+    pair_of_values = sum_pairs(array, sum)
+    expect(pair_of_values).not_to eq [2]
   end
 end
