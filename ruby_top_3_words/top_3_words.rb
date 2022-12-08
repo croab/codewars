@@ -1,17 +1,19 @@
 def top_3_words(text)
-  # split into array based on white space
   raw_words_array = text.split(" ")
-  # Make lowercase
-  # Remove everything other than a-z and '
-  # Create object with word as key and value as counter
   word_object = Hash.new
   raw_words_array.each do |raw_word|
-    word = raw_word.downcase.gsub(/[^abcdefghijklmnopqrstuvwxyz' ]/,'')
-    # puts word
-    word_object[word] ? word_object[word] += 1 : word_object[word] = 1
+    word = raw_word.downcase.gsub(/[^abcdefghijklmnopqrstuvwxyz' ]/, '')
+    word_without_apost = raw_word.downcase.gsub("'", '')
+    if (word != '' && word_without_apost != '')
+      word_object[word] ? word_object[word] += 1 : word_object[word] = 1
+    end
   end
-  # Organise and evaluate top 3!
-  puts word_object
+  final_object = word_object.sort_by { |key, value| -value }
+  final_array = final_object[0...3].map {|elem| elem[0]}
+
+  return final_array
 end
 
-top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e")
+# top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e")
+# top_3_words("  , e   .. ")
+# top_3_words("  '''  ")
