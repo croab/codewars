@@ -19,20 +19,23 @@ class Sudoku
     row_array = row_array.each_slice(number_row_or_col).to_a
     @rows = row_array.map {|array| array.flatten}
     # Use transpose?
-    column_array = []
-    column_number = 0
-    start_of_slice = 0
-    data.each_with_index do |block1, index|
-      data.each do |block2|
-        # p block2
-        column_fraction = block2.slice(start_of_slice, number_row_or_col)
-        # p column_fraction
-        column_array.push(column_fraction)
+    reordered_array = []
+    for i in 0..number_row_or_col do
+      data.each_with_index do |block, index|
+        reordered_array << block if i == (index % number_row_or_col) + 1
       end
-      index % number_row_or_col == 1 ? start_of_slice = 0 : start_of_slice += number_row_or_col
     end
-    column_array = column_array.each_slice(number_row_or_col).to_a
-    @columns = column_array.map {|array| array.flatten}
+    slice_start = 0
+    number_row_or_col.to_i.times do
+      array_slice = reordered_array.slice(slice_start, number_row_or_col)
+      array_slice.each do |block|
+        p block
+      end
+      slice_start += 1
+    end
+    # column_array = column_array.each_slice(number_row_or_col).to_a
+    # @columns = column_array.map {|array| array.flatten}
+    @columns = reordered_array
   end
   def valid?
     p @columns
