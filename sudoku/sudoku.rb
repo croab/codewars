@@ -4,24 +4,38 @@ class Sudoku
     grid_size = data.size
     number_row_or_col = Math.sqrt(data.size)
 
-    row_array = Array.new(number_row_or_col) { |i| i = [] }
+    row_array = []
     row_number = 0
     start_of_slice = 0
     data.each_with_index do |block1, index|
       data.each do |block2|
         # p block2
         row_fraction = block2.slice(start_of_slice, number_row_or_col)
-        p row_fraction
-        row_array[row_number].push(row_fraction)
+        # p row_fraction
+        row_array.push(row_fraction)
       end
       index % number_row_or_col == 1 ? start_of_slice = 0 : start_of_slice += number_row_or_col
     end
-      @row = row_array
+    row_array = row_array.each_slice(number_row_or_col).to_a
+    @rows = row_array.map {|array| array.flatten}
     # Use transpose?
-    @columns = []
+    column_array = []
+    column_number = 0
+    start_of_slice = 0
+    data.each_with_index do |block1, index|
+      data.each do |block2|
+        # p block2
+        column_fraction = block2.slice(start_of_slice, number_row_or_col)
+        # p column_fraction
+        column_array.push(column_fraction)
+      end
+      index % number_row_or_col == 1 ? start_of_slice = 0 : start_of_slice += number_row_or_col
+    end
+    column_array = column_array.each_slice(number_row_or_col).to_a
+    @columns = column_array.map {|array| array.flatten}
   end
   def valid?
-    p @rows
+    p @columns
   end
 end
 
