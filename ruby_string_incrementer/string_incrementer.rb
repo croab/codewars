@@ -7,7 +7,10 @@ def increment_string(input)
 
   # Loop over reversed input array to pick out trailing numbers
   input_array_reversed.each_with_index do |character, index|
-    if index == 0 && !character.match(/^(\d)+$/)
+    if index == 0 && character == ''
+      puts "HI THERE"
+      numbers_array_reversed.push('0')
+    elsif index == 0 && !character.match(/^(\d)+$/)
       return input + '1'
     elsif character.match(/^(\d)+$/)
       numbers_array_reversed.push(character)
@@ -41,4 +44,4 @@ def num_leading_zeroes(numbers_array)
   return '0' * num_zeroes
 end
 
-puts increment_string('foobar00')
+puts increment_string('')
