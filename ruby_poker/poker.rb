@@ -70,7 +70,7 @@ class PokerHand
         num_quadruplets += 1
       end
     end
-    if (hand_values.uniq.size == hand_values.size && hand_suits.uniq.size > 1)
+    if (hand_values.uniq.size == hand_values.size && hand_suits.uniq.size > 1 && !consecutive)
       p "1"
       return 1
     elsif num_pairs == 1 && num_triplets == 0
@@ -101,12 +101,52 @@ class PokerHand
   end
 
   def compare_equal_types(hand_array_detailed, other_array_detailed)
-
+    hand_values = hand_array_detailed.map { |card| card[0] }.sort
+    # hand_suits = hand_array_detailed.map { |card| card[1] }.sort
+    other_values = other_array_detailed.map { |card| card[0] }.sort
+    # other_suits = other_array_detailed.map { |card| card[1] }.sort
+    p hand_values
+    p other_values
+    for i in 0..5
+      if hand_values[i] > other_values[i]
+        return "Win"
+      elsif hand_values[i] < other_values[i]
+        return "Loss"
+      end
+      return "Tie"
+    end
   end
 end
 
-new_hand = PokerHand.new("1S 2H 2H 6H 6H")
-# new_hand2 = PokerHand.new("2H 3H 2H 5H 6H")
-p new_hand.compare_with("KS AS TS QS JS")
-
-#  NEED TO CONVERT K A Q ETC INTO NUMBERS
+# p "Expect loss"
+# p PokerHand.new("2H 3H 4H 5H 6H").compare_with("KS AS TS QS JS")
+# p "Expect win"
+# p PokerHand.new("2H 3H 4H 5H 6H").compare_with("AS AD AC AH JD")
+p "Expect win"
+p PokerHand.new("AS AH 2H AD AC").compare_with("JS JD JC JH 3D")
+# p "Expect loss"
+# p PokerHand.new("2S AH 2H AS AC").compare_with("JS JD JC JH AD")
+# p "Expect win"
+# p PokerHand.new("2S AH 2H AS AC").compare_with("2H 3H 5H 6H 7H")
+# p "Expect win"
+# p PokerHand.new("AS 3S 4S 8S 2S").compare_with("2H 3H 5H 6H 7H")
+# p "Expect win"
+# p PokerHand.new("2H 3H 5H 6H 7H").compare_with("2S 3H 4H 5S 6C")
+# p "Expect tie"
+# p PokerHand.new("2S 3H 4H 5S 6C").compare_with("3D 4C 5H 6H 2S")
+# p "Expect win"
+# p PokerHand.new("2S 3H 4H 5S 6C").compare_with("AH AC 5H 6H AS")
+# p "Expect loss"
+# p PokerHand.new("2S 2H 4H 5S 4C").compare_with("AH AC 5H 6H AS")
+# p "Expect win"
+# p PokerHand.new("2S 2H 4H 5S 4C").compare_with("AH AC 5H 6H 7S")
+# p "Expect loss"
+# p PokerHand.new("6S AD 7H 4S AS").compare_with("AH AC 5H 6H 7S")
+# p "Expect loss"
+# p PokerHand.new("2S AH 4H 5S KC").compare_with("AH AC 5H 6H 7S")
+# p "Expect loss"
+# p PokerHand.new("2S 3H 6H 7S 9C").compare_with("7H 3C TH 6H 9S")
+# p "Expect win"
+# p PokerHand.new("4S 5H 6H TS AC").compare_with("3S 5H 6H TS AC")
+# p "Expect tie"
+# p PokerHand.new("2S AH 4H 5S 6C").compare_with("AD 4C 5H 6H 2C")
